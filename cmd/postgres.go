@@ -33,8 +33,22 @@ func PostgresConnection() (*sql.DB, error) {
 	}
 
 	err = db.Ping()
+	fmt.Println(err)
+
 	if err != nil {
 		return nil, err
+	}
+
+	createTable := `
+		CREATE TABLE IF NOT EXISTS ru_en (
+				id SERIAL PRIMARY KEY,
+				title TEXT NOT NULL,
+				translation TEXT NOT NULL
+		);
+	`
+	_, err = db.Exec(createTable)
+	if err != nil {
+		return nil, fmt.Errorf("Ошибка при создании бд %v", err)
 	}
 
 	return db, nil

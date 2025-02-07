@@ -2,4 +2,4 @@ POSTGRES_DB: "dict"
 POSTGRES_USER: "postgres"
 POSTGRES_PASSWORD: "asdfg"
 PORT: 5432
-HOST: "172.17.28.20"
+HOST: "localhost"
