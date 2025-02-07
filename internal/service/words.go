@@ -55,6 +55,7 @@ func (s *Service) UpdateWords(c echo.Context) error {
 	err := c.Bind(&wordSlice)
 	if err != nil {
 		s.logger.Error(InvalidParams)
+		return c.JSON(s.NewError(InvalidParams))
 	}
 
 	repo := s.wordsRepo
