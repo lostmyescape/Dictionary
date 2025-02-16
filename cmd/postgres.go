@@ -33,8 +33,6 @@ func PostgresConnection() (*sql.DB, error) {
 	}
 
 	err = db.Ping()
-	fmt.Println(err)
-
 	if err != nil {
 		return nil, err
 	}

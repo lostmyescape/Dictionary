@@ -32,9 +32,9 @@ func (r *Repo) CreateNewWords(word, translate string) error {
 	return nil
 }
 
-// UpdateWordById обновление слова в бд
-func (r *Repo) UpdateWordById(id int, word, translate string) error {
-	_, err := r.db.Exec(`UPDATE ru_en SET (title, translation) = ($2, $3) WHERE id = ($1)`, id, word, translate)
+// UpdateWord обновление слова в бд
+func (r *Repo) UpdateWord(word, translate string) error {
+	_, err := r.db.Exec(`UPDATE ru_en SET translation = $2 WHERE title = $1`, word, translate)
 	if err != nil {
 		return err
 	}
