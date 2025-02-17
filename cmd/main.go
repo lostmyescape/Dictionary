@@ -22,11 +22,17 @@ func main() {
 	// создаем группу api
 	api := router.Group("api")
 
-	// прописываем пути
+	// api words
 	api.GET("/word/:id", svc.GetWordById)
 	api.POST("/words", svc.CreateWords)
 	api.PUT("/word", svc.UpdateWords)
 	api.DELETE("/words/:id", svc.DeleteWords)
+
+	// api reports
+	api.GET("/report/:id", svc.GetReport)
+	api.POST("/reports", svc.CreateReport)
+	api.PUT("/report/:id", svc.UpdateReport)
+	api.DELETE("/report/:id", svc.DeleteReport)
 
 	router.Logger.Fatal(router.Start(":8000"))
 }

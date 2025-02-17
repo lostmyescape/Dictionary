@@ -20,3 +20,5 @@ INSERT INTO ru_en (title, translation) VALUES
                                            ('Машина', 'Car'),
                                            ('Окно', 'Window'),
                                            ('Ручка', 'Pen');
+
+

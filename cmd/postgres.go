@@ -38,10 +38,12 @@ func PostgresConnection() (*sql.DB, error) {
 	}
 
 	createTable := `
-		CREATE TABLE IF NOT EXISTS ru_en (
+		CREATE TABLE IF NOT EXISTS reports (
 				id SERIAL PRIMARY KEY,
-				title TEXT NOT NULL,
-				translation TEXT NOT NULL
+				title VARCHAR(100),
+				description VARCHAR(255),
+				created_at timestamp DEFAULT NOW(),
+				updated_at timestamp DEFAULT NOW()
 		);
 	`
 	_, err = db.Exec(createTable)
