@@ -29,17 +29,16 @@ func (s *Service) GetWordById(c echo.Context) error {
 // CreateWords добавляем в базу новые слова в базу
 // localhost:8000/api/words
 func (s *Service) CreateWords(c echo.Context) error {
-	var wordSlice []Word
-	err := c.Bind(&wordSlice)
+	var word Word
+	err := c.Bind(&word)
 	if err != nil {
 		s.logger.Error(err)
 		return c.JSON(s.NewError(InvalidParams))
 	}
 
 	repo := s.wordsRepo
-	for _, word := range wordSlice {
-		err = repo.CreateNewWords(word.Title, word.Translation)
-	}
+
+	err = repo.CreateNewWords(word.Title, word.Translation)
 	if err != nil {
 		s.logger.Error(err)
 		return c.JSON(s.NewError(InternalServerError))
@@ -50,17 +49,16 @@ func (s *Service) CreateWords(c echo.Context) error {
 
 // UpdateWords обновляем слово
 func (s *Service) UpdateWords(c echo.Context) error {
-	var wordSlice []Word
-	err := c.Bind(&wordSlice)
+	var word Word
+	err := c.Bind(&word)
 	if err != nil {
 		s.logger.Error(err)
 		return c.JSON(s.NewError(InvalidParams))
 	}
 
 	repo := s.wordsRepo
-	for _, word := range wordSlice {
-		err = repo.UpdateWord(word.Title, word.Translation)
-	}
+
+	err = repo.UpdateWord(word.Title, word.Translation)
 	if err != nil {
 		s.logger.Error(err)
 		return c.JSON(s.NewError(InternalServerError))
