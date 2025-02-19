@@ -27,6 +27,8 @@ func main() {
 	api.POST("/words", svc.CreateWords)
 	api.PUT("/word", svc.UpdateWords)
 	api.DELETE("/words/:id", svc.DeleteWords)
+	// api search
+	api.GET("/search/ru", svc.SearchWords)
 
 	// api reports
 	api.GET("/report/:id", svc.GetReport)

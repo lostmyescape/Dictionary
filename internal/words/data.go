@@ -49,3 +49,38 @@ func (r *Repo) DeleteWordsById(id int) error {
 	}
 	return nil
 }
+
+// SearchWordsByParam поиск слов по title
+func (r *Repo) SearchWordsByParam(title string) ([]Word, error) {
+	var words []Word
+
+	query := `
+		SELECT id, title, translation 
+		FROM ru_en
+		WHERE title ILIKE '%' || $1 || '%'
+		ORDER BY similarity(title, $1)
+		DESC LIMIT 100
+		`
+
+	rows, err := r.db.Query(query, title)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var word Word
+		err := rows.Scan(&word.Id, &word.Title, &word.Translation)
+		if err != nil {
+			return nil, err
+		}
+
+		words = append(words, word)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return words, nil
+}
